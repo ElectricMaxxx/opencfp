@@ -47,7 +47,6 @@ to-production:
   stage: production
   only: ['master']
   before_script:
-  before_script:
     #- apt-get update -yqq
     #- apt-get install -yqq git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev
     # Install PHP extensions
@@ -56,11 +55,11 @@ to-production:
     - curl -sS https://getcomposer.org/installer | php
     # Install deployer
     - curl -LO https://deployer.org/deployer.phar | php
+    - cp config/production.yml.dist config/production.yml
     - php composer.phar install --no-dev --optimize-autoloader
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
     - npm install
-  when: manual
   script:
     - echo "Deploy to the first available production server"
     - php deployer.phar deployment.ini
