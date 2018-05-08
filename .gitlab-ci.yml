@@ -66,6 +66,7 @@ to-production:
 
 services:
   - mysql:5.7
+  - node:9.11.1
 
 variables:
   MYSQL_DATABASE: cfp_test
