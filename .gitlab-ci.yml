@@ -14,7 +14,7 @@ stages:
 
 test-php:
   services:
-    - node:9
+    - node:9.11
     - php:7.1
     - mysql:5.7
   stage: test
@@ -39,7 +39,7 @@ test-php:
     - vendor/bin/phpunit --testsuite integration
 
 test-js:
-  image: node:9
+  image: node:9.11
   stage: test
   script:
     - echo "Run frontend tests"
@@ -48,7 +48,7 @@ test-js:
 
 to-production:
   services:
-    - node:9
+    - node:9.11
     - php:7.1
   stage: production
   only: ['master']
@@ -58,12 +58,16 @@ to-production:
     - apt-get install -yqq zlib1g-dev gnupg build-essential libssl-dev git
     - docker-php-ext-install zip
     - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
+    # install yarn
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    - apt-get update -yqq && apt-get install -yqq yarn
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-dev --optimize-autoloader
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
-    - npm install
+    - yarn install
     # Install deployer
     - curl -LO https://deployer.org/deployer.phar | php
   script:
