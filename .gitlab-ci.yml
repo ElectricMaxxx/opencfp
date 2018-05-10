@@ -32,7 +32,7 @@ test-php:
     - php composer.phar validate --no-check-publish
     - php composer.phar install
     - sh .travis/setup-mail.sh
-    - cp config/testing.yml.dist config/testing.yml
+    - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
     - php vendor/bin/phinx migrate --environment ${CFP_ENV}
   script:
     - echo "Run PHP tests"
@@ -53,21 +53,21 @@ to-production:
   stage: production
   only: ['master']
   before_script:
-    - export CFP_ENV=prodcution
+    - export CFP_ENV=production
     - apt-get update -yqq
     - apt-get install -yqq zlib1g-dev gnupg build-essential libssl-dev git
     - docker-php-ext-install zip
-    - cp config/production.yml.dist config/production.yml
+    - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-dev --optimize-autoloader
-    - php bin/console cache:clear --env=prod
-    - php bin/console cache:warmup -env=prod
+    - php bin/console cache:clear --env=${CFP_ENV}
+    - php bin/console cache:warmup -env=${CFP_ENV}
     - npm install
     # Install deployer
     - curl -LO https://deployer.org/deployer.phar | php
   script:
-    - echo "Deploy to the first available production server"
+    - echo "Deploy to the first available ${CFP_ENV} server"
     - php deployer.phar ./deployment.ini
 
 services:
