@@ -62,7 +62,7 @@ to-production:
     - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
     - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
     - apt-get update -yqq
-    - apt-get install -yqq yarn
+    - apt-get install -yqq  apt-transport-https yarn
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-dev --optimize-autoloader
