@@ -24,6 +24,7 @@ jobs:
       php: 7.1
 
       before_install:
+        - export CFP_ENV=testing
         - phpenv config-rm xdebug.ini
         - composer validate --no-check-publish
 
@@ -46,6 +47,7 @@ jobs:
       php: 7.1
 
       before_install:
+        - export CFP_ENV=testing
         - source .travis/xdebug.sh
         - xdebug-disable
         - composer validate --no-check-publish
@@ -54,10 +56,11 @@ jobs:
         - composer install
 
       before_script:
+        - export CFP_ENV=testing
         - sh .travis/setup-mail.sh
         - mysql -e "CREATE DATABASE $TRAVIS_DB" -uroot
-        - cp config/testing.yml.dist config/testing.yml
-        - CFP_ENV=testing vendor/bin/phinx migrate --environment testing
+        - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
+        - vendor/bin/phinx migrate --environment ${CFP_ENV}
         - mysqldump -uroot $TRAVIS_DB > tests/dump.sql
 
       script:
@@ -87,10 +90,11 @@ jobs:
     - stage: deploy
       if: branch = master
       script:
+       - export CFP_ENV=production
        - apt-get update -yqq
        - apt-get install -yqq zlib1g-dev gnupg build-essential libssl-dev git
        - docker-php-ext-install zip
-       - cp config/production.yml.dist config/production.yml
+       - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
        # Install and run Composer
        - curl -sS https://getcomposer.org/installer | php
        - php composer.phar install --no-dev --optimize-autoloader
@@ -100,5 +104,5 @@ jobs:
        # Install deployer
        - curl -LO https://deployer.org/deployer.phar | php
     script:
-      - echo "Deploy to the first available production server"
+      - echo "Deploy to the first available ${CFP_ENV} server"
       - php deployer.phar ./deployment.ini
