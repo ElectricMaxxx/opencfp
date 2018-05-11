@@ -32,7 +32,7 @@ mail:
   port: ~
   username: "%env(MAIL_USER)%"
   password: "%env(MAIL_PASSWORD)%"
-  encryption: "SSL"
+  encryption: ~
   auth_mode: ~
 
 talk:
