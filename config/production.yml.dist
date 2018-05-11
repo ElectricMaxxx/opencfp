@@ -30,9 +30,9 @@ log:
 mail:
   host: s126.goserver.host
   port: 465
-  username: web185p2
-  password: vu5mae8outhaiV8h
-  encryption: ~
+  username: web185p1
+  password: JooMievoo9haek0r
+  encryption: tsl
   auth_mode: ~
 
 talk:
