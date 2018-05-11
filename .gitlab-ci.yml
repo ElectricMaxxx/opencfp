@@ -74,7 +74,7 @@ to-production:
     - curl -LO https://deployer.org/deployer.phar | php
   script:
     - echo "Deploy to the first available ${CFP_ENV} server"
-    - php deployer.phar ./deployment.ini
+    - php deployment.phar deployment.ini
 
 services:
   - node:9.11
