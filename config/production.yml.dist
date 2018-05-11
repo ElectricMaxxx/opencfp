@@ -28,10 +28,10 @@ log:
   level: error
 
 mail:
-  host: ~
-  port: ~
-  username: ~
-  password: ~
+  host: s126.goserver.host
+  port: 465
+  username: web185p2
+  password: vu5mae8outhaiV8h
   encryption: ~
   auth_mode: ~
 
