@@ -1,54 +1,62 @@
 application:
-  title: "FrOSCon PHP Track"
-  url: http://cfp.froscon-php-track.de/
-  email: cfp@froscon-php-track.de
-  eventurl: http://froscon-php-track.de/
-  event_location: Hochschule Bonn-Rhein-Sieg
-  enddate: 'August 30, 2018'
+  title: OpenCFP
+  url: http://cfp.dev
+  email: contact@openconf.com
+  eventurl: http://myenvent.com
+  event_location: Miami, FL
+  enddate: Oct. 14th, 2100
   show_submission_count: false
-  airport: CGN
-  arrival: '1535187600'
-  departure: '1535306400'
-  secure_ssl: false
+  airport: MIA
+  arrival: 2018-10-26
+  departure: 2018-10-31
+  secure_ssl: true
   online_conference: false
-  date_format: 'F j, Y'
+  date_format: d/m/Y
   date_timezone: "UTC"
   coc_link: http://confcodeofconduct.com/
   show_contrib_banner: true
-  venue_image_path: /assets/img/nerdish_by_nature.png
+  venue_image_path: /assets/img/venue.jpg
 
 database:
   host: 127.0.0.1
-  database: web185_db1
-  dsn: mysql:dbname=web185_db1;host=127.0.0.1
-  user: web185_1
-  password: ohgoh2neNah7ueju
+  database: cfp
+  dsn: mysql:dbname=cfp;host=127.0.0.1
+  user: root
+  password: ~
 
 log:
   level: error
 
 mail:
-  host: s126.goserver.host
-  port: 465
-  username: web185p1
-  password: JooMievoo9haek0r
-  encryption: tsl
+  host: ~
+  port: ~
+  username: ~
+  password: ~
+  encryption: ~
   auth_mode: ~
 
 talk:
   categories:
-    web: Web-Development (Full Stack from Database over PHP to Frontend)
-    principle: Development principles
-    frameworks: Framework-related topics
-    tooling: Tooling - Testing / Building / Deployment
-    management: Project Management
-    other: Others
+    api: APIs (REST, SOAP, etc.)
+    continuousdelivery: Continuous Delivery
+    database: Database
+    development: Development
+    devops: Devops
+    framework: Framework
+    ibmi: IBMi
+    javascript: JavaScript
+    personal: Personal Skills
+    security: Security
+    testing: Testing
+    uiux: UI/UX
+    other: Other
   levels:
     entry: Entry level
     mid: Mid-level
     advanced: Advanced
   types:
     regular: Regular (50 mins)
+    tutorial: Tutorial (3 hrs)
 
 security:
   firewalls:
