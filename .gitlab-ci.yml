@@ -70,11 +70,13 @@ to-production:
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
     - yarn install
-    # Install deployer
-    - curl -LO https://deployer.org/deployer.phar | php
+    # Install deployment.phar
+    - curl -LO https://github.com/dg/ftp-deployment/releases/download/v2.9.0/deployment.phar | php
+
   script:
     - echo "Deploy to the first available ${CFP_ENV} server"
     - php deployment.phar deployment.ini
+
 
 services:
   - node:9.11
