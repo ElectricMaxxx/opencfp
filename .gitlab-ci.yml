@@ -52,6 +52,7 @@ test-js:
     - npm run production
 
 prepare-production:
+  stage: production
   services:
     - node:9.11
     - php:7.1
