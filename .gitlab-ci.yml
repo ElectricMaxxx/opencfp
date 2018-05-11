@@ -51,14 +51,11 @@ test-js:
     - npm install
     - npm run production
 
-prepare-production:
+to-production:
   stage: production
   services:
     - node:9.11
     - php:7.1
-  artifacts:
-    paths:
-      - ./
   before_script:
     - export CFP_ENV=production
     - apt-get update -yqq
@@ -73,16 +70,10 @@ prepare-production:
     - apt-get install -yqq nodejs yarn
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
-  script:
     - php composer.phar install --no-dev --optimize-autoloader
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
     - yarn install
-
-to-production:
-  stage: production
-  only: ['master']
-  before_script:
     # Install deployment.phar
     - curl -LO https://github.com/dg/ftp-deployment/releases/download/v2.9.0/deployment.phar | php
   script:
