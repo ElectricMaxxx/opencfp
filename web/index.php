@@ -14,15 +14,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use OpenCFP\Environment;
 use OpenCFP\Kernel;
-use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
-
+env('CFP_ENV', 'production');
 $basePath    = \realpath(\dirname(__DIR__));
 $environment = Environment::fromServer($_SERVER);
-
-if (!$environment->isProduction()) {
-    Debug::enable();
-}
 
 $kernel   = new Kernel((string) $environment, !$environment->isProduction());
 $request  = Request::createFromGlobals();
