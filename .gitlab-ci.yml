@@ -18,6 +18,11 @@ test-php:
     - php:7.1
     - mysql:5.7
   stage: test
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - build/
+    expire_in: 3 days
   before_script:
     - export CFP_ENV=testing
     - apt-get update -yqq
@@ -46,12 +51,13 @@ test-js:
     - npm install
     - npm run production
 
-to-production:
+prepare-production:
   services:
     - node:9.11
     - php:7.1
-  stage: production
-  only: ['master']
+  artifacts:
+    paths:
+      - ./
   before_script:
     - export CFP_ENV=production
     - apt-get update -yqq
@@ -66,17 +72,21 @@ to-production:
     - apt-get install -yqq nodejs yarn
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
+  script:
     - php composer.phar install --no-dev --optimize-autoloader
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
     - yarn install
+
+to-production:
+  stage: production
+  only: ['master']
+  before_script:
     # Install deployment.phar
     - curl -LO https://github.com/dg/ftp-deployment/releases/download/v2.9.0/deployment.phar | php
-
   script:
     - echo "Deploy to the first available ${CFP_ENV} server"
     - php deployment.phar deployment.ini
-
 
 services:
   - node:9.11
