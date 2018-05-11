@@ -52,6 +52,7 @@ test-js:
     - npm run production
 
 to-production:
+  when: manual
   stage: production
   services:
     - node:9.11
