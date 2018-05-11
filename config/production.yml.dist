@@ -18,52 +18,44 @@ application:
   venue_image_path: /assets/img/venue.jpg
 
 database:
-  host: 127.0.0.1
-  database: cfp
-  dsn: mysql:dbname=cfp;host=127.0.0.1
-  user: root
-  password: ~
+  host: "%env(DB_HOST)%"
+  database: "%env(DB_NAME)%"
+  dsn: mysql:dbname="%env(DB_NAME)%";host="%env(DB_HOST)%"
+  user: "%env(DB_USER)%"
+  password: "%env(DB_PASSWORD)%"
 
 log:
   level: error
 
 mail:
-  host: ~
+  host: "%env(MAIL_HOST)%"
   port: ~
-  username: ~
-  password: ~
-  encryption: ~
+  username: "%env(MAIL_USER)%"
+  password: "%env(MAIL_PASSWORD)%"
+  encryption: "SSL"
   auth_mode: ~
 
 talk:
   categories:
-    api: APIs (REST, SOAP, etc.)
-    continuousdelivery: Continuous Delivery
-    database: Database
-    development: Development
-    devops: Devops
-    framework: Framework
-    ibmi: IBMi
-    javascript: JavaScript
-    personal: Personal Skills
-    security: Security
-    testing: Testing
-    uiux: UI/UX
-    other: Other
+    web: "Web-Development (Full Stack from Database over PHP to Frontend)"
+    principle: "Development principles"
+    frameworks: "Framework-related topics"
+    tooling: "Tooling - Testing / Building / Deployment"
+    management: "Project Management"
+    other: "Others"
   levels:
-    entry: Entry level
-    mid: Mid-level
-    advanced: Advanced
+    entry: "Entry level"
+    mid: "Mid-level"
+    advanced: "Advanced"
   types:
-    regular: Regular (50 mins)
-    tutorial: Tutorial (3 hrs)
+    regular: "Regular (50 mins)"
 
 security:
   firewalls:
     secured_area:
       form_forgot:
-        csrf_parameter: _csrf_security_token
-        csrf_token_id: forgot_password
+        csrf_parameter: "_csrf_security_token"
+        csrf_token_id: "forgot_password"
 
 reviewer:
   users:
