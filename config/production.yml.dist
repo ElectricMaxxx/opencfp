@@ -48,7 +48,8 @@ talk:
     mid: "Mid-level"
     advanced: "Advanced"
   types:
-    regular: "Regular (50 mins)"
+    regular: Regular (50 mins)
+    tutorial: Tutorial (3 hrs)
 
 security:
   firewalls:

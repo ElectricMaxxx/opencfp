@@ -58,25 +58,20 @@ to-production:
     - node:9.11
     - php:7.1
   before_script:
-    - export CFP_ENV=production
-    - apt-get update -yqq
-    - apt-get install -yqq zlib1g-dev gnupg build-essential libssl-dev git apt-transport-https
-    - docker-php-ext-install zip
-    - cp config/${CFP_ENV}.yml.dist config/${CFP_ENV}.yml
-    # install yarn
-    - curl -sL https://deb.nodesource.com/setup_9.x | bash -
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-    - apt-get update -yqq
-    - apt-get install -yqq nodejs yarn
+  before_script:
+    #- apt-get update -yqq
+    #- apt-get install -yqq git libmcrypt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev
+    # Install PHP extensions
+    #- docker-php-ext-install mbstring mcrypt pdo_mysql curl json intl gd xml zip bz2 opcache
     # Install and run Composer
     - curl -sS https://getcomposer.org/installer | php
+    # Install deployer
+    - curl -LO https://deployer.org/deployer.phar | php
     - php composer.phar install --no-dev --optimize-autoloader
     - php bin/console cache:clear --env=${CFP_ENV}
     - php bin/console cache:warmup -env=${CFP_ENV}
-    - yarn install
-    # Install deployment.phar
-    - curl -LO https://github.com/dg/ftp-deployment/releases/download/v2.9.0/deployment.phar | php
+    - npm install
+  when: manual
   script:
     - echo "Deploy to the first available ${CFP_ENV} server"
     - php deployment.phar deployment.ini
